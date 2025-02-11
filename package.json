@@ -6,9 +6,11 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "connect-session-sequelize": "^7.1.7",
     "cookie": "^1.0.2",
     "cookie-parser": "~1.4.4",
+    "cookies": "^0.9.1",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",

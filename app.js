@@ -4,6 +4,20 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+const sequelize = require("./models/index");
+const bcrypt = require("bcrypt");
+
+const { Contact } = require("./models/contact");
+
+const { sessionMiddleware, verifySession } = require("./controllers/middleware");
+// const registerRouter = require("./routes/users/register");
+const logInRouter = require("./routes/logIn");
+// const nextRouter = require("./routes/users/next");
+// const chatRoomRouter = require("./routes/chatroom");
+// const messagesRouter = require("./routes/api");
+// const searchRouter = require("./routes/search");
+// const notFoundRouter = require("./routes/notFound");
+
 // david commented out
 // var indexRouter = require("./routes/index");
 // var usersRouter = require("./routes/users");
@@ -20,7 +34,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-// david added - initialize sequelize
 (async () => {
   try {
     await sequelize.authenticate();
@@ -30,10 +43,14 @@ app.use(express.static(path.join(__dirname, "public")));
   }
 })();
 
-// david added. RON - THIS IS WHERE I STOPPED, SHOULD CONTUNUE FROM HERE I GUESS
-app.use(/^\/(login|register.*)$/, async (req, res, next) => {
-  req.session.email ? res.redirect("/chatroom") : next();
-});
+app.use(sessionMiddleware);
+app.use("/", verifySession);
+app.use("/login", logInRouter);
+
+// // david added. RON - THIS IS WHERE I STOPPED, SHOULD CONTUNUE FROM HERE I GUESS
+// app.use(/^\/(login|register.*)$/, async (req, res, next) => {
+//   req.session.email ? res.redirect("/chatroom") : next();
+// });
 
 // david commented out
 // app.use("/", indexRouter);
