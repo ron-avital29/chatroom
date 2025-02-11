@@ -3,16 +3,28 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
-// david commented out
-// var indexRouter = require("./routes/index");
-// var usersRouter = require("./routes/users");
-
+const session = require("express-session");
+const sequelize = require("./models/index");
 var app = express();
+
+const SPOLLING = 3600000;
+
+// david added
+const logInRouter = require("./routes/logIn");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+// Middleware to configure session handling
+app.use(
+  session({
+    secret: "i want to visit japn",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: SPOLLING, httpOnly: false },
+  })
+);
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -30,14 +42,13 @@ app.use(express.static(path.join(__dirname, "public")));
   }
 })();
 
-// david added. RON - THIS IS WHERE I STOPPED, SHOULD CONTUNUE FROM HERE I GUESS
+// david added
 app.use(/^\/(login|register.*)$/, async (req, res, next) => {
   req.session.email ? res.redirect("/chatroom") : next();
 });
 
-// david commented out
-// app.use("/", indexRouter);
-// app.use("/users", usersRouter);
+// david added
+app.use("/", logInRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -53,6 +64,10 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
+});
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
 });
 
 module.exports = app;
