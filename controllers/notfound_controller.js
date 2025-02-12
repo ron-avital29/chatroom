@@ -4,8 +4,8 @@
  * @param {Request} req - The request object.
  * @param {Response} res - The response object.
  */
-const renderNotFoundPage = async (req, res) => {
-  res.render("notfound", {});
+const renderNotFoundPage = (req, res) => {
+  res.render("notfound", {title: "404 - Page Not Found"});
 };
 
 module.exports = { renderNotFoundPage };

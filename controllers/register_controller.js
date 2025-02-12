@@ -1,15 +1,10 @@
 const { Contact } = require("../models/contact");
+const { emailAlreadyInDataBase } = require("./utils");
 const REGISTER = 30;
-
-//maybe have it in a different file -utils
-const emailAlreadyInDataBase = async (email) => {
-  const user = await Contact.findOne({ where: { email } });
-  return user !== null;
-};
 
 const getRegisterPage = (req, res) => {
   const userDetailsCookie = req.cookies.userDetails ? JSON.parse(req.cookies.userDetails) : {};
-  res.render("registerEmail", { messages: req.flash(), det: userDetailsCookie });
+  res.render("registerEmail", { title:"Register", messages: req.flash(), det: userDetailsCookie });
 };
 
 const postRegisterPage = async (req, res) => {

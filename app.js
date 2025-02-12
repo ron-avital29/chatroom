@@ -55,8 +55,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/login", verifySession, logInRouter);
-app.use("/newUser/register", verifySession, registerRouter);
-app.use("/newUser/choosePassword", verifySession, detailsExist, passwordRouter);
+app.use("/newUser", verifySession);
+app.use("/newUser/register", registerRouter);
+app.use("/newUser/choosePassword", detailsExist, passwordRouter);
 app.use("/not-found", notFoundRouter);
 // // david added. RON - THIS IS WHERE I STOPPED, SHOULD CONTUNUE FROM HERE I GUESS
 // app.use(/^\/(login|register.*)$/, async (req, res, next) => {

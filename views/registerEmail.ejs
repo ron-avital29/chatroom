@@ -1,82 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link id="favicon" rel="icon" href="images/chat.png" type="image/x-icon" />
-    <title>Register New User</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-  </head>
-  <body style="background-color: #66c2bab9">
-    <div class="navbar-nav m-5 mb-0">
-      <button class="nav-link me-auto text-dark border border-dark border-2 rounded p-3" data-bs-toggle="modal" data-bs-target="#modal">Who is submitting?</button>
-    </div>
+<%- include('partials/top') %>
 
-    <section>
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col col-xl-10">
-            <div class="card" style="border-radius: 1rem">
-              <div class="row g-0">
-                <div class="col-md-6 col-lg-5 d-none d-md-block">
-                  <img src="/images/homepage.png" alt="Homepage Image" class="img-fluid" style="border-radius: 1rem 0 0 1rem" />
+<%- include('partials/pageShape') %>
+                  <span class="h1 fw-bold mb-0">Join Us!</span>
                 </div>
-                <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                  <div class="card-body p-4 p-lg-5 text-black">
-                    <div class="d-flex align-items-center mb-3 pb-1">
-                      <span class="h1 fw-bold mb-0">Join Us!</span>
-                    </div>
-                    <form action="/newUser/register" method="POST">
-                      <div class="form-floating mb-4">
-                        <input type="email" name="email" class="form-control" placeholder="email" required maxlength="32" value="<%= det.email %>" />
-                        <label for="floatingEmail" class="text-secondary">Email address</label>
-                        <% if (messages.error) { %>
-                        <a class="text-danger" style="text-decoration: none; font-weight: bold"><%= messages.error %></a>
+                <form action="/newUser/register" method="POST">
+                  <div class="form-floating mb-4">
+                    <input type="email" name="email" class="form-control" placeholder="email" required maxlength="32" value="<%= det.email %>" />
+                    <label for="floatingEmail" class="text-secondary">Email address</label>
+                    <% if (messages.error) { %>
+                    <a class="text-danger" style="text-decoration: none; font-weight: bold"><%= messages.error %></a>
 
-                        <a href="/login" class="btn btn-link p-0" style="color: #393f81">logIn here</a>
-                        <% } %>
-                      </div>
-                      <div class="form-floating mb-4">
-                        <input type="text" name="firstName" class="form-control" placeholder="first Name" required pattern="[A-Za-z]{3,32}" maxlength="32" value="<%= det.firstName %>" />
-                        <label for="firstNameId" class="text-secondary">First Name</label>
-                      </div>
-
-                      <div class="form-floating mb-4">
-                        <input type="text" name="lastName" class="form-control" placeholder="Last Name" required pattern="[A-Za-z]{3,32}" maxlength="32" value="<%= det.lastName %>" />
-                        <label for="lastNameId" class="text-secondary">Last Name</label>
-                      </div>
-                      <div class="pt-1 mb-4">
-                        <button class="btn btn-dark btn-lg btn-block" type="submit">Next</button>
-                      </div>
-                    </form>
+                    <a href="/login" class="btn btn-link p-0" style="color: #393f81">logIn here</a>
+                    <% } %>
                   </div>
-                </div>
+                  <div class="form-floating mb-4">
+                    <input type="text" name="firstName" class="form-control" placeholder="first Name" required pattern="[A-Za-z]{3,32}" maxlength="32" value="<%= det.firstName %>" />
+                    <label for="firstNameId" class="text-secondary">First Name</label>
+                  </div>
+
+                  <div class="form-floating mb-4">
+                    <input type="text" name="lastName" class="form-control" placeholder="Last Name" required pattern="[A-Za-z]{3,32}" maxlength="32" value="<%= det.lastName %>" />
+                    <label for="lastNameId" class="text-secondary">Last Name</label>
+                  </div>
+                  <div class="pt-1 mb-4">
+                    <button class="btn btn-dark btn-lg btn-block" type="submit">Next</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section id="modal-content">
-      <div class="modal fade" id="modal" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Who is submitting?</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>Name: Ron Avital <br />Id: 318751419<br />Email: ronav@edu.hac.ac.il<br /></p>
-              <p>Name: David Weschler<br />Id: 209736578<br />Email: davidwes@edu.hac.ac.il</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </body>
-</html>
+<%- include('partials/modal') %>

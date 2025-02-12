@@ -1,20 +1,4 @@
-const { Contact } = require("../models/contact");
-const bcrypt = require("bcrypt");
-
-//maybe have it in a different file -utils
-const verified = async (email, password) => {
-  const user = await Contact.findOne({ where: { email } });
-  if (!user) {
-    console.log("User not found");
-    return null;
-  }
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (isMatch) {
-    return user;
-  } else {
-    return null;
-  }
-};
+const { verified } = require("./utils");
 
 /**
  * Handles GET requests to the login page.
@@ -23,7 +7,7 @@ const verified = async (email, password) => {
  * @param {Response} res - The response object.
  */
 const getLoginPage = (req, res) => {
-  res.render("login", { messages: req.flash() });
+  res.render("login", { title:"Login", messages: req.flash() });
 };
 
 const postLoginPage = async (req, res) => {
