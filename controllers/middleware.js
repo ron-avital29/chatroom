@@ -4,16 +4,26 @@ const SPOLLING = 3600000;
 const sessionMiddleware = session({
   secret: "i want to visit japn",
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   cookie: { maxAge: SPOLLING, httpOnly: false },
 });
 
 const verifySession = (req, res, next) => {
   if (req.session.email) {
-    res.redirect("/cnatroom");
+    res.redirect("/chatroom");
   } else {
-    res.redirect("/login");
+    next();
   }
 };
 
-module.exports = { sessionMiddleware, verifySession };
+const detailsExist = (req, res, next) => {
+  const userDetailsCookie = req.cookies.userDetails ? JSON.parse(req.cookies.userDetails) : null;
+
+  if (userDetailsCookie) {
+    next();
+  } else {
+    res.redirect("/newUser/register");
+  }
+};
+
+module.exports = { sessionMiddleware, verifySession, detailsExist };

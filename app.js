@@ -1,30 +1,29 @@
-var createError = require("http-errors");
+// var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+const flash = require("connect-flash");
 const sequelize = require("./models/index");
 const bcrypt = require("bcrypt");
 
 const { Contact } = require("./models/contact");
 
-const { sessionMiddleware, verifySession } = require("./controllers/middleware");
-// const registerRouter = require("./routes/users/register");
+const { sessionMiddleware, verifySession, detailsExist } = require("./controllers/middleware");
 const logInRouter = require("./routes/logIn");
-// const nextRouter = require("./routes/users/next");
+const registerRouter = require("./routes/register");
+const passwordRouter = require("./routes/password");
 // const chatRoomRouter = require("./routes/chatroom");
 // const messagesRouter = require("./routes/api");
 // const searchRouter = require("./routes/search");
-// const notFoundRouter = require("./routes/notFound");
+const notFoundRouter = require("./routes/notFound");
 
 // david commented out
 // var indexRouter = require("./routes/index");
 // var usersRouter = require("./routes/users");
 
 var app = express();
-
-const SPOLLING = 3600000;
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -46,20 +45,27 @@ app.use(express.static(path.join(__dirname, "public")));
 })();
 
 app.use(sessionMiddleware);
-app.use("/", verifySession);
-app.use("/login", logInRouter);
+app.use(flash());
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.redirect("/login");
+});
+
+app.use("/login", verifySession, logInRouter);
+app.use("/newUser/register", verifySession, registerRouter);
+app.use("/newUser/choosePassword", verifySession, detailsExist, passwordRouter);
+app.use("/not-found", notFoundRouter);
 // // david added. RON - THIS IS WHERE I STOPPED, SHOULD CONTUNUE FROM HERE I GUESS
 // app.use(/^\/(login|register.*)$/, async (req, res, next) => {
 //   req.session.email ? res.redirect("/chatroom") : next();
 // });
 
-// david added
-app.use("/", logInRouter);
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+  res.redirect("/not-found");
 });
 
 // error handler
