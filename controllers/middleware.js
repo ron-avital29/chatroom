@@ -10,9 +10,18 @@ const sessionMiddleware = session({
 
 const verifySession = (req, res, next) => {
   if (req.session.email) {
-    res.redirect("/chatroom");
+    res.redirect("/chatroom/chat");
   } else {
     next();
+  }
+};
+
+const verifyPremission = (req, res, next) => {
+  if (req.session.email) {
+    next();
+  } else {
+    req.flash("error", "Please login first");
+    res.redirect("/login");
   }
 };
 
@@ -26,4 +35,11 @@ const detailsExist = (req, res, next) => {
   }
 };
 
-module.exports = { sessionMiddleware, verifySession, detailsExist };
+const verifyApiAccsess = async (req, res, next) => {
+  if (!req.session.email) {
+    return res.status(403).send();
+  }
+  next();
+};
+
+module.exports = { sessionMiddleware, verifySession, verifyPremission, detailsExist, verifyApiAccsess };

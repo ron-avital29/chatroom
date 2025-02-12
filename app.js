@@ -1,4 +1,4 @@
-// var createError = require("http-errors");
+var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
@@ -10,13 +10,13 @@ const bcrypt = require("bcrypt");
 
 const { Contact } = require("./models/contact");
 
-const { sessionMiddleware, verifySession, detailsExist } = require("./controllers/middleware");
+const { sessionMiddleware, verifySession, verifyPremission, detailsExist, verifyApiAccsess } = require("./controllers/middleware");
 const logInRouter = require("./routes/logIn");
 const registerRouter = require("./routes/register");
 const passwordRouter = require("./routes/password");
-// const chatRoomRouter = require("./routes/chatroom");
-// const messagesRouter = require("./routes/api");
-// const searchRouter = require("./routes/search");
+const chatRoomRouter = require("./routes/chatroom");
+const messagesRouter = require("./routes/api");
+const searchRouter = require("./routes/search");
 const notFoundRouter = require("./routes/notFound");
 
 // david commented out
@@ -55,14 +55,18 @@ app.get("/", (req, res) => {
 });
 
 app.use("/login", verifySession, logInRouter);
+
 app.use("/newUser", verifySession);
 app.use("/newUser/register", registerRouter);
 app.use("/newUser/choosePassword", detailsExist, passwordRouter);
+
+app.use("/chatroom", verifyPremission);
+app.use("/chatroom/chat", chatRoomRouter);
+app.use("/chatroom/search", searchRouter);
+
+app.use("/api", verifyApiAccsess, messagesRouter);
+
 app.use("/not-found", notFoundRouter);
-// // david added. RON - THIS IS WHERE I STOPPED, SHOULD CONTUNUE FROM HERE I GUESS
-// app.use(/^\/(login|register.*)$/, async (req, res, next) => {
-//   req.session.email ? res.redirect("/chatroom") : next();
-// });
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

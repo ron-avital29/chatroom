@@ -1,0 +1,33 @@
+<%- include('partials/top') %>
+<%- include('partials/spinner') %>
+    <section>
+      <div class="p-5">
+        <div class="container py-5 border border-dark border-2 rounded">
+          <div class="row">
+            <h1 class="font-weight-bold mb-3 text-center text-lg-start">Chat Room - Welcome <%= username %></h1>
+            <div class="col-md col-lg col-xl">
+              <div class="d-flex">
+                <form action="/chatroom/chat" method="POST" class="me-3">
+                  <button type="submit" class="btn btn-info mb-5">Log Out</button>
+                </form>
+                <form action="/chatroom/search">
+                  <button type="submit" class="btn btn-info mb-5">Search</button>
+                </form>
+              </div>
+              <ul class="list-unstyled" id="msg-placeholder"></ul>
+              <div class="form-outline d-flex align-items-end">
+                <textarea class="form-control bg-body-tertiary me-2" id="mesInp" placeholder="Write A Message :)" rows="1"></textarea>
+                <button type="button" id="send" class="btn btn-info btn-rounded">Send</button>
+              </div>
+              <div class="ps-2">
+                <a id="emptySend" class="d-none text-muted text-decoration-none"><b>Type a message first silly 🪿</b></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%- include('partials/modal') %>
+    <script type="module" src="/javascripts/chatFunction.js"></script>
+    <%- include('partials/buttom') %>

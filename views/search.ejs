@@ -1,0 +1,38 @@
+<%- include('partials/top') %>
+<%- include('partials/spinner') %>
+
+    <section>
+        <div class="p-5">
+            <div class="container py-5 border border-dark border-2 rounded">
+              <div class="row">
+                <h1 class="font-weight-bold mb-3 text-center text-lg-start">Search Results</h1>
+                <div class="col-md col-lg col-xl">
+                  <div class="d-flex">
+                    <form action="/chatroom/chat" method="POST" class="me-3">
+                      <button type="submit" class="btn btn-info mb-5">Log Out</button>
+                    </form>
+    
+                    <form action="/chatroom/chat">
+                      <button type="submit" class="btn btn-info mb-5">Return</button>
+                    </form>
+                  </div>
+    
+                  <div class="form-outline d-flex align-items-end w-100 mb-5">
+                    <input class="form-control d-flex align-items-end border border-primary me-3" placeholder="Search" id="search-inp" />
+                    <button class="btn btn-outline-primary my-2 my-sm-0" id="searchBtn">Search</button>
+                  </div>
+                  <div class="ps-2">
+                    <p id="emptySeach" class="d-none text-muted text-decoration-none"><b> How can we search for nothing? Provide some text 🖊️</b></p>
+                    <p id="nothingFound" class="d-none text-muted text-decoration-none"><b>No messages were found. Try a diffrent search or send some more messages 😵‍💫</b></p>
+                  </div>
+    
+                  <ul class="list-unstyled" id="search-results"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <%- include('partials/modal') %>
+        <script type="module" src="/javascripts/searchFunction.js"></script>
+        <%- include('partials/buttom') %>

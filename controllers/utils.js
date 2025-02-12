@@ -19,7 +19,16 @@ const emailAlreadyInDataBase = async (email) => {
   return user !== null;
 };
 
+const findUser = async (email) => {
+  const user = await Contact.findOne({ where: { email } });
+  if (user) {
+    return { firstName: user.firstName, email: user.email };
+  }
+  return null;
+};
+
 module.exports = {
   verified,
   emailAlreadyInDataBase,
+  findUser
 };
