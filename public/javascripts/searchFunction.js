@@ -7,7 +7,6 @@ const searchHandler = (function () {
     try {
       HandleFirstSpinner.showSpinner();
       const response = await fetch(`/api/search/${prompt}`);
-
       if (response.status === 403) {
         window.location.href = "/";
       }
