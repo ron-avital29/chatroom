@@ -6,9 +6,6 @@ var logger = require("morgan");
 
 const flash = require("connect-flash");
 const sequelize = require("./models/index");
-const bcrypt = require("bcrypt");
-
-const { Contact } = require("./models/contact");
 
 const { sessionMiddleware, verifySession, verifyPremission, detailsExist, verifyApiAccsess } = require("./controllers/middleware");
 const logInRouter = require("./routes/logIn");
@@ -18,10 +15,6 @@ const chatRoomRouter = require("./routes/chatroom");
 const messagesRouter = require("./routes/api");
 const searchRouter = require("./routes/search");
 const notFoundRouter = require("./routes/notFound");
-
-// david commented out
-// var indexRouter = require("./routes/index");
-// var usersRouter = require("./routes/users");
 
 var app = express();
 

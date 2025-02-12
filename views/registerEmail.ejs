@@ -10,14 +10,13 @@
                     <% if (messages.error) { %>
                     <a class="text-danger" style="text-decoration: none; font-weight: bold"><%= messages.error %></a>
 
-                    <a href="/login" class="btn btn-link p-0" style="color: #393f81">logIn here</a>
                     <% } %>
                   </div>
                   <div class="form-floating mb-4">
                     <input type="text" name="firstName" class="form-control" placeholder="first Name" required pattern="[A-Za-z]{3,32}" maxlength="32" value="<%= det.firstName %>" />
                     <label for="firstNameId" class="text-secondary">First Name</label>
                   </div>
-
+                  
                   <div class="form-floating mb-4">
                     <input type="text" name="lastName" class="form-control" placeholder="Last Name" required pattern="[A-Za-z]{3,32}" maxlength="32" value="<%= det.lastName %>" />
                     <label for="lastNameId" class="text-secondary">Last Name</label>
@@ -25,6 +24,7 @@
                   <div class="pt-1 mb-4">
                     <button class="btn btn-dark btn-lg btn-block" type="submit">Next</button>
                   </div>
+                  <p>Already have an account?<a href="/login" class="btn btn-link p-0 ms-1" style="color: #393f81"> login here</a></p>
                 </form>
               </div>
             </div>
