@@ -4,6 +4,12 @@ const sequelize = require("./index");
 const { DataTypes } = require("sequelize");
 const Message = require("./message");
 
+/**
+ * Contact model.
+ * @param {*} sequelize
+ * @param {*} DataTypes
+ * @returns
+ */
 const Contact = sequelize.define(
   "Contact",
   {

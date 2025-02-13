@@ -1,12 +1,23 @@
 "use strict";
 import { HandleFirstSpinner } from "./utils.js";
 
+/**
+ * Handles the chat functionality.
+ */
 (function () {
   const POLLING = 100;
   let editingMode = false;
   let lastTimeStampUpdate = new Date(0);
 
+  /**
+   * Handles the chat functionality.
+   */
   const MessagesLoader = (() => {
+    /**
+     * Adds a new message to the chat.
+     * @param {*} messege
+     * @returns
+     */
     const addNewMessege = async (messege) => {
       try {
         const messegeObj = {
@@ -35,6 +46,10 @@ import { HandleFirstSpinner } from "./utils.js";
       }
     };
 
+    /**
+     * Sets the latest delete button.
+     * @returns
+     */
     const setLatestDeleteBtn = () => {
       const deleteBtns = document.querySelectorAll(".delete-btn");
       if (deleteBtns.length === 0) return;
@@ -42,6 +57,10 @@ import { HandleFirstSpinner } from "./utils.js";
       lastDeleteBtn.addEventListener("click", deleteMessage);
     };
 
+    /**
+     * Sets the latest edit button.
+     * @returns
+     */
     const setLatestEditBtn = () => {
       const editBtns = document.querySelectorAll(".edit-btn");
       if (editBtns.length === 0) return;
@@ -49,6 +68,10 @@ import { HandleFirstSpinner } from "./utils.js";
       lastEditBtn.addEventListener("click", editMessage);
     };
 
+    /**
+     * Displays the messages in the chat.
+     * @returns
+     */
     const displayMessages = async () => {
       try {
         const msgDiv = document.getElementById("msg-placeholder");
@@ -73,6 +96,11 @@ import { HandleFirstSpinner } from "./utils.js";
       }
     };
 
+    /**
+     * Builds a message card.
+     * @param {*} param0
+     * @returns
+     */
     const buildMsgCard = ({ msgId, dateAndTime, message, isOwner, Contact }) => {
       const senderIsUser = isOwner;
       const picSrc = senderIsUser ? "/images/bearer.png" : "/images/bear.png";
@@ -114,6 +142,9 @@ import { HandleFirstSpinner } from "./utils.js";
             `;
     };
 
+    /**
+     * Sets the delete buttons.
+     */
     const setDeleteBtns = () => {
       const deleteBtns = document.querySelectorAll(".delete-btn");
       deleteBtns.forEach((btn) => {
@@ -121,6 +152,10 @@ import { HandleFirstSpinner } from "./utils.js";
       });
     };
 
+    /**
+     * Deletes a message.
+     * @param {*} e
+     */
     const deleteMessage = async (e) => {
       try {
         const emptySend = document.getElementById("emptySend");
@@ -137,6 +172,11 @@ import { HandleFirstSpinner } from "./utils.js";
       }
     };
 
+    /**
+     * Erases a message.
+     * @param {*} messageId
+     * @returns
+     */
     const eraseMessage = async (messageId) => {
       try {
         const response = await fetch(`/api/messages/${messageId}`, {
@@ -158,6 +198,9 @@ import { HandleFirstSpinner } from "./utils.js";
       }
     };
 
+    /**
+     * Sets the edit buttons.
+     */
     const setEditBtns = () => {
       const editBtns = document.querySelectorAll(".edit-btn");
 
@@ -166,6 +209,11 @@ import { HandleFirstSpinner } from "./utils.js";
       });
     };
 
+    /**
+     * Edits a message.
+     * @param {*} e
+     * @returns
+     */
     const editMessage = async (e) => {
       try {
         const messageCard = e.target.closest("li");
@@ -223,8 +271,9 @@ import { HandleFirstSpinner } from "./utils.js";
     };
   })();
 
-  //--------
-
+  /**
+   * Initializes the chat functionality.
+   */
   document.addEventListener("DOMContentLoaded", async () => {
     const sendBtn = document.getElementById("send");
     const textarea = document.getElementById("mesInp");

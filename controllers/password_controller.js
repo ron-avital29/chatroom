@@ -3,16 +3,26 @@ const bcrypt = require("bcrypt");
 const { emailAlreadyInDataBase } = require("./utils");
 const saltRounds = 10;
 
+/**
+ * Renders the choose password page.
+ * @param {*} req
+ * @param {*} res
+ */
 const getPasswordPage = (req, res) => {
   let det = req.flash("det")[0];
   det = det ? JSON.parse(det) : {};
   res.render("registerPassword", { title: "choose a password", det: det, messages: req.flash() });
 };
 
+/**
+ * Handles the post request for the choose password page.
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
 const postPasswordPage = async (req, res) => {
   try {
     const { password1, password2 } = req.body;
-
     const trimmedPassword1 = password1?.trim();
     const trimmedPassword2 = password2?.trim();
 

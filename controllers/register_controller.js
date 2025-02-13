@@ -1,11 +1,21 @@
 const { emailAlreadyInDataBase } = require("./utils");
 const REGISTER = 30;
 
+/**
+ * Renders the register page.
+ * @param {*} req
+ * @param {*} res
+ */
 const getRegisterPage = (req, res) => {
   const userDetailsCookie = req.cookies.userDetails ? JSON.parse(req.cookies.userDetails) : {};
   res.render("registerEmail", { title: "Register", messages: req.flash(), det: userDetailsCookie });
 };
 
+/**
+ * Handles the post request for the register page.
+ * @param {*} req
+ * @param {*} res
+ */
 const postRegisterPage = async (req, res) => {
   try {
     const { email, firstName, lastName } = req.body;

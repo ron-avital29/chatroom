@@ -3,6 +3,9 @@
 const sequelize = require("./index");
 const { DataTypes } = require("sequelize");
 
+/**
+ * Represents a message.
+ */
 const Message = sequelize.define(
   "Message",
   {

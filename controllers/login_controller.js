@@ -1,9 +1,19 @@
 const { verified } = require("./utils");
 
+/**
+ * Renders the login page.
+ * @param {*} req
+ * @param {*} res
+ */
 const getLoginPage = (req, res) => {
   res.render("login", { title: "Login", messages: req.flash() });
 };
 
+/**
+ * Handles the login post request.
+ * @param {*} req
+ * @param {*} res
+ */
 const postLoginPage = async (req, res) => {
   try {
     let { email, password } = req.body;

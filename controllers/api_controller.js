@@ -82,7 +82,6 @@ const getMessages = async (req, res) => {
     });
     res.status(200).send(messages);
   } catch (error) {
-    console.log(error);
     res.status(400).send({ error: "Error fetching messages" });
   }
 };

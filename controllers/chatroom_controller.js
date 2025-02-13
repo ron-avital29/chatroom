@@ -1,5 +1,10 @@
 const { findUser } = require("./utils");
 
+/**
+ * Renders the chat page.
+ * @param {*} req
+ * @param {*} res
+ */
 const getChatPage = async (req, res) => {
   try {
     const user = await findUser(req.session.email);
