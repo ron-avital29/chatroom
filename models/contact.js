@@ -35,9 +35,6 @@ const Contact = sequelize.define(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        len: [3, 32],
-      },
     },
     profilePicSrc: {
       type: DataTypes.STRING,
