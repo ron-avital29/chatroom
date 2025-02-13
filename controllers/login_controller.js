@@ -24,7 +24,7 @@ const postLoginPage = async (req, res) => {
     console.error("Error during login:", error);
     req.flash("error", "Something went wrong. Please try again.");
     req.flash("color", "text-danger");
-    res.redirect("/login"); //we need to make an error page to redirect to - do we? we get here when trying to manipulate the frontend name len validation (by makin it 1 instead of 3 e.g)
+    res.redirect("/login");
   }
 };
 

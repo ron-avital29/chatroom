@@ -27,7 +27,7 @@ const postRegisterPage = async (req, res) => {
   } catch (error) {
     console.error("Error during registration:", error);
     req.flash("error", "Something went wrong. Please try again.");
-    res.redirect("/newUser/register"); //we need to make an error page to redirect to
+    res.redirect("/newUser/register");
   }
 };
 

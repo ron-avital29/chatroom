@@ -1,11 +1,7 @@
-
 const getSearchPage = (req, res) => {
-    res.render("search", { title: "Search", clientCode: "searchFunction.js"});
-}
-
-//const postSearchPage = (req, res) => {}
+  res.render("search", { title: "Search", clientCode: "searchFunction.js" });
+};
 
 module.exports = {
-    getSearchPage,
-    //postSearchPage
+  getSearchPage,
 };
