@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { getSearchPage /*postSearchPage*/ } = require("../controllers/search_controller");
+const { getSearchPage } = require("../controllers/search_controller");
 
+/**
+ * GET request to render the search page.
+ */
 router.get("/", getSearchPage);
-
-//router.post("/", postSearchPage);
 
 module.exports = router;
