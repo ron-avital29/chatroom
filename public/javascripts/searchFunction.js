@@ -2,7 +2,15 @@
 import { HandleFirstSpinner } from "./utils.js";
 
 (function () {
+  /**
+   * Handles the search functionality.
+   */
   const searchHandler = (function () {
+    /**
+     *  Fetches messages from the server based on the search prompt.
+     * @param {*} prompt
+     * @returns
+     */
     const searchByPrompt = async (prompt) => {
       try {
         HandleFirstSpinner.showSpinner();
@@ -23,6 +31,10 @@ import { HandleFirstSpinner } from "./utils.js";
       }
     };
 
+    /**
+     *  Displays the search results on the page.
+     * @param {*} messages
+     */
     const displaySearchResults = (messages) => {
       const msgDiv = document.getElementById("search-results");
       msgDiv.innerHTML = "";
@@ -34,6 +46,11 @@ import { HandleFirstSpinner } from "./utils.js";
       msgDiv.innerHTML = domMessages;
     };
 
+    /**
+     * Builds a card for each search result.
+     * @param {*} param0
+     * @returns
+     */
     const buildSearchCard = ({ dateAndTime, message, Contact }) => {
       const sender = Contact.firstName;
       const formattedDateTime = new Date(dateAndTime).toLocaleString("en-US", {
@@ -59,6 +76,10 @@ import { HandleFirstSpinner } from "./utils.js";
       `;
     };
 
+    /**
+     * Searches for messages based on the prompt and displays them.
+     * @param {*} prompt
+     */
     const searchAndDisplay = async (prompt) => {
       try {
         const nothingFound = document.getElementById("nothingFound");
@@ -83,6 +104,9 @@ import { HandleFirstSpinner } from "./utils.js";
     return { searchAndDisplay };
   })();
 
+  /**
+   * Initializes the search functionality.
+   */
   document.addEventListener("DOMContentLoaded", async () => {
     const searchMsgBtn = document.getElementById("searchBtn");
 
