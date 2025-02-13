@@ -12,7 +12,7 @@ const Contact = sequelize.define(
       allowNull: false,
       validate: {
         isAlpha: true,
-        len: [2, 32],
+        len: [3, 32],
       },
     },
     lastName: {
@@ -20,7 +20,7 @@ const Contact = sequelize.define(
       allowNull: false,
       validate: {
         isAlpha: true,
-        len: [2, 32],
+        len: [3, 32],
       },
     },
     email: {
@@ -29,12 +29,15 @@ const Contact = sequelize.define(
       unique: true,
       validate: {
         isEmail: true,
-        len: [2, 32],
+        len: [3, 32],
       },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        len: [3, 32],
+      },
     },
     profilePicSrc: {
       type: DataTypes.STRING,

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/header') %>
+  <body style="background-color: #66c2bab9">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh">
+      <div class="text-center">
+        <h2 class="display-5 text-dark mb-4">Oops! Something went wrong</h2>
+        <p class="lead text-dark mb-4">Try again later</p>
+        <img src="https://m.media-amazon.com/images/I/718p98YQ6gL._AC_UF894,1000_QL80_.jpg" alt="Error Image" style="width: 50%" />
+        <div class="mt-2">
+          <form action="/error" method="POST">
+            <button type="submit" class="btn btn-info btn-lg">Go home 🏠</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <%- include('partials/buttom') %>
+  </body>
+</html>

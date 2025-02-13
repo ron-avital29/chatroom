@@ -27,8 +27,15 @@ const findUser = async (email) => {
   return null;
 };
 
+const disconnect = (req, res) => {
+  req.session.destroy(() => {
+    res.redirect("/login");
+  });
+};
+
 module.exports = {
   verified,
   emailAlreadyInDataBase,
-  findUser
+  findUser,
+  disconnect,
 };

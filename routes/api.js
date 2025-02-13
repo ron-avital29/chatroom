@@ -1,15 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {
-  getContacts,
-  searchMessages,
-  getMessages,
-  createMessage,
-  deleteMessage,
-  updateMessage,
-  getUserByEmail,
-  getLatestMessageUpdate,
-} = require("../controllers/api_controller");
+const { getContacts, searchMessages, getMessages, createMessage, deleteMessage, updateMessage, getUserByEmail, getLatestMessageUpdate } = require("../controllers/api_controller");
 
 /**
  * GET request to fetch all contacts.
@@ -19,7 +10,7 @@ router.get("/contacts", getContacts);
 /**
  * GET request to search messages based on a prompt.
  */
-router.get("/search/:prompt", searchMessages);
+router.get("/search", searchMessages);
 
 /**
  * GET request to fetch all messages excluding deleted ones.

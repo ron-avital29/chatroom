@@ -2,10 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const { disconnect } = require("../controllers/utils");
-const { getChatPage } = require("../controllers/chatroom_controller");
+const { getErrorPage } = require("../controllers/error_controller");
 
-router.get("/", getChatPage);
+router.get("/", getErrorPage);
 
 router.post("/", disconnect);
-
 module.exports = router;

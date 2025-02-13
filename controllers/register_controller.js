@@ -1,10 +1,9 @@
-const { Contact } = require("../models/contact");
 const { emailAlreadyInDataBase } = require("./utils");
 const REGISTER = 30;
 
 const getRegisterPage = (req, res) => {
   const userDetailsCookie = req.cookies.userDetails ? JSON.parse(req.cookies.userDetails) : {};
-  res.render("registerEmail", { title:"Register", messages: req.flash(), det: userDetailsCookie });
+  res.render("registerEmail", { title: "Register", messages: req.flash(), det: userDetailsCookie });
 };
 
 const postRegisterPage = async (req, res) => {
@@ -31,7 +30,6 @@ const postRegisterPage = async (req, res) => {
     res.redirect("/newUser/register"); //we need to make an error page to redirect to
   }
 };
-
 
 module.exports = {
   getRegisterPage,

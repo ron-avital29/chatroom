@@ -24,7 +24,8 @@ const getContacts = async (req, res) => {
  */
 const searchMessages = async (req, res) => {
   try {
-    const prompt = req.params.prompt.toLowerCase();
+    // const prompt = req.params.prompt.toLowerCase();
+    const prompt = (req.query.query || "").toLowerCase();
     const messages = await Message.findAll({
       where: {
         isDeleted: false,
@@ -109,6 +110,14 @@ const createMessage = async (req, res) => {
 const deleteMessage = async (req, res) => {
   try {
     const messageId = req.params.id;
+    const message = await Message.findOne({ where: { msgId: messageId } });
+    const contactId = message.ContactId;
+    const contact = await Contact.findOne({ where: { id: contactId } });
+
+    if (contact.email !== req.session.email) {
+      throw new Error("Unauthorized");
+    }
+
     await Message.update({ isDeleted: true }, { where: { msgId: messageId } });
     res.status(200).send();
   } catch (error) {
@@ -124,7 +133,17 @@ const deleteMessage = async (req, res) => {
 const updateMessage = async (req, res) => {
   try {
     const messageId = req.params.id;
+    const message = await Message.findOne({ where: { msgId: messageId } });
+    const contactId = message.ContactId;
+    const contact = await Contact.findOne({ where: { id: contactId } });
+
+    if (contact.email !== req.session.email) {
+      res.status(403).send({ error: "Unauthorized" });
+      return;
+    }
+
     const newMessage = req.body.message;
+
     await Message.update({ message: newMessage }, { where: { msgId: messageId } });
     res.status(200).send({ message: "Message updated successfully" });
   } catch (error) {
@@ -160,7 +179,7 @@ const getUserByEmail = async (req, res) => {
 const getLatestMessageUpdate = async (req, res) => {
   try {
     const latestMessage = await Message.findOne({
-      attributes: [[fn("MAX", col("updatedAt")), "latest"]], 
+      attributes: [[fn("MAX", col("updatedAt")), "latest"]],
     });
 
     const latestTimestamp = latestMessage?.get("latest") || null;

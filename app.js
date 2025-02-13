@@ -10,11 +10,11 @@ const sequelize = require("./models/index");
 const { sessionMiddleware, verifySession, verifyPremission, detailsExist, verifyApiAccsess } = require("./controllers/middleware");
 const logInRouter = require("./routes/logIn");
 const registerRouter = require("./routes/register");
-const passwordRouter = require("./routes/password");
 const chatRoomRouter = require("./routes/chatroom");
 const messagesRouter = require("./routes/api");
 const searchRouter = require("./routes/search");
 const notFoundRouter = require("./routes/notFound");
+const errorRouter = require("./routes/error");
 
 var app = express();
 
@@ -50,8 +50,8 @@ app.get("/", (req, res) => {
 app.use("/login", verifySession, logInRouter);
 
 app.use("/newUser", verifySession);
-app.use("/newUser/register", registerRouter);
-app.use("/newUser/choosePassword", detailsExist, passwordRouter);
+app.use("/newUser/choosePassword", detailsExist);
+app.use("/newUser", registerRouter);
 
 app.use("/chatroom", verifyPremission);
 app.use("/chatroom/chat", chatRoomRouter);
@@ -59,6 +59,7 @@ app.use("/chatroom/search", searchRouter);
 
 app.use("/api", verifyApiAccsess, messagesRouter);
 
+app.use("/error", errorRouter);
 app.use("/not-found", notFoundRouter);
 
 // catch 404 and forward to error handler
